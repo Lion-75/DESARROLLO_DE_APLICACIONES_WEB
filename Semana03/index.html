@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Página web semántica para la tarea de Desarrollo de Aplicaciones Web - Semana 03">
+    <title>Proyecto Semana 03 - HTML5 Semántico</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+</head>
+<body>
+    <!-- CABECERA DE LA PÁGINA -->
+    <header class="site-header">
+        <div class="container">
+            <h1>Desarrollo de Aplicaciones Web</h1>
+            <p class="subtitle">Semana 03: HTML5 Semántico y Estructura Web</p>
+        </div>
+    </header>
+
+    <!-- MENÚ DE NAVEGACIÓN -->
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#multimedia">Multimedia</a></li>
+                <li><a href="#tablas">Tablas</a></li>
+                <li><a href="#formulario">Formulario</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container">
+        
+        <!-- SECCIÓN DE INTRODUCCIÓN -->
+        <section id="inicio" class="section intro-section">
+            <h2>Introducción al HTML5 Semántico</h2>
+            
+            <article class="content-article">
+                <h3>¿Qué es HTML5 Semántico?</h3>
+                <p>HTML5 semántico se refiere al uso de etiquetas con significado que describen el contenido que encierran, en lugar de solo definir cómo se ve.</p>
+                
+                <p>Esto mejora la <em>accesibilidad</em>, el <em>SEO</em> y la <em>mantenibilidad</em> del código. Por ejemplo:</p>
+                
+                <ul>
+                    <li><code>&lt;header&gt;</code> - Cabecera de página o sección</li>
+                    <li><code>&lt;nav&gt;</code> - Menú de navegación</li>
+                    <li><code>&lt;main&gt;</code> - Contenido principal</li>
+                    <li><code>&lt;section&gt;</code> - Sección temática</li>
+                    <li><code>&lt;article&gt;</code> - Contenido independiente</li>
+                    <li><code>&lt;footer&gt;</code> - Pie de página</li>
+                </ul>
+                
+                <h3>Beneficios Clave</h3>
+                <ol>
+                    <li>Mejor indexación en motores de búsqueda</li>
+                    <li>Accesibilidad para lectores de pantalla</li>
+                    <li>Código más legible y mantenible</li>
+                    <li>Estructura clara para desarrolladores</li>
+                </ol>
+            </article>
+        </section>
+
+        <!-- SECCIÓN DE MULTIMEDIA -->
+        <section id="multimedia" class="section multimedia-section">
+            <h2>Multimedia en la Web</h2>
+            
+            <article class="media-article">
+                <h3>Imágenes Responsivas</h3>
+                <p>Las imágenes deben incluir siempre el atributo <strong>alt</strong> para accesibilidad:</p>
+                
+                <div class="image-container">
+                    
+                    <img src="assets/img/logo-uea.jpg" alt="Ejemplo de imagen para desarrollo web" class="responsive-img">
+                    <p class="img-caption">Ejemplo de imagen con etiqueta semántica &lt;img&gt;</p>
+                </div>
+            </article>
+            
+            <article class="media-article">
+                <h3>Video en HTML5</h3>
+                <p>El elemento <code>&lt;video&gt;</code> permite incrustar contenido multimedia:</p>
+                
+                <div class="video-container">
+                    
+                    <video controls class="responsive-video">
+                        <source src="assets/video/logo.mp4" type="video/mp4">
+                        Tu navegador no soporta el elemento de video.
+                    </video>
+                    <p class="video-caption">Video demostrativo de funcionalidades web</p>
+                </div>
+            </article>
+        </section>
+
+        <!-- SECCIÓN DE TABLAS -->
+        <section id="tablas" class="section table-section">
+            <h2>Tablas en HTML</h2>
+            
+            <article class="table-article">
+                <h3>Ejemplo de Tabla Semántica</h3>
+                <p>Las tablas deben usar <strong>&lt;thead&gt;, &lt;tbody&gt;, y &lt;th&gt;</strong> para ser accesibles:</p>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Etiqueta HTML</th>
+                            <th>Función</th>
+                            <th>Es Semántica</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>&lt;div&gt;</code></td>
+                            <td>Contenedor genérico</td>
+                            <td>❌ No</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;section&gt;</code></td>
+                            <td>Sección temática</td>
+                            <td>✅ Sí</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;article&gt;</code></td>
+                            <td>Contenido independiente</td>
+                            <td>✅ Sí</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;nav&gt;</code></td>
+                            <td>Navegación principal</td>
+                            <td>✅ Sí</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;span&gt;</code></td>
+                            <td>Contenedor en línea</td>
+                            <td>❌ No</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </article>
+        </section>
+
+        <!-- SECCIÓN DE FORMULARIO -->
+        <section id="formulario" class="section form-section">
+            <h2>Formulario de Contacto</h2>
+            
+            <article class="form-article">
+                <h3>Envíanos tus Comentarios</h3>
+                <p>Los formularios permiten la <strong>interacción con el usuario</strong>:</p>
+                
+                <form action="#" method="POST" class="contact-form">
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo:</label>
+                        <input type="text" id="nombre" name="nombre" required placeholder="Ej: Juan Pérez">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Correo electrónico:</label>
+                        <input type="email" id="email" name="email" required placeholder="ejemplo@correo.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="asunto">Asunto:</label>
+                        <select id="asunto" name="asunto">
+                            <option value="consulta">Consulta General</option>
+                            <option value="soporte">Soporte Técnico</option>
+                            <option value="sugerencia">Sugerencia</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje:</label>
+                        <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribe tu mensaje aquí..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="submit-btn">Enviar Mensaje</button>
+                        <button type="reset" class="reset-btn">Limpiar Formulario</button>
+                    </div>
+                </form>
+            </article>
+        </section>
+
+        <!-- SECCIÓN DE ENLACES EXTERNOS -->
+        <section class="section links-section">
+            <h2>Recursos Externos</h2>
+            
+            <article class="links-article">
+                <h3>Enlaces de Referencia</h3>
+                <p>Consulta estos recursos para aprender más:</p>
+                
+                <ul class="external-links">
+                    <li>
+                        <a href="https://developer.mozilla.org/es/docs/Web/HTML" target="_blank" rel="noopener noreferrer">
+                            MDN Web Docs - HTML
+                        </a> - Documentación oficial de HTML
+                    </li>
+                    <li>
+                        <a href="https://www.w3schools.com/html/" target="_blank" rel="noopener noreferrer">
+                            W3Schools - HTML Tutorial
+                        </a> - Tutoriales interactivos
+                    </li>
+                    <li>
+                        <a href="https://html.spec.whatwg.org/" target="_blank" rel="noopener noreferrer">
+                            WHATWG HTML Living Standard
+                        </a> - Estándar oficial de HTML
+                    </li>
+                </ul>
+            </article>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Proyecto Semana 03</h4>
+                    <p>Desarrollo de Aplicaciones Web</p>
+                    <p>Estructura semántica HTML5 + CSS</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Información</h4>
+                    <p>Estudiante: Gabriel Isaiasi Lino Burgos</p>
+                    <p>Fecha: <time datetime="2024">14/12/2025</time></p>
+                    <p>Universidad: Universidad Estatal Amazonica</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Ubicación</h4>
+                    <address>
+                        Carrera de Tecnologías de la información<br>
+                        Universidad Estatal Amazonica<br>
+                        Puyo, Pastaza, Ecuador<br>
+                    </address>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Desarrollo de Aplicaciones Web - Semana 03.</p>
+                <p class="footer-note">
+                    Esta página es un proyecto educativo para demostrar el uso de etiquetas semánticas HTML5.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ENLACE PARA SUBIR ARRIBA -->
+    <a href="#top" class="back-to-top">↑ Volver arriba</a>
+
+</body>
+</html>
