@@ -176,12 +176,12 @@ body {
     border: 2px dashed #ddd;
 }
 
-/* En styles.css, línea ~95, prueba agregar: */
 .responsive-img {
     max-width: 100%;
-    height: 300px; /* Altura fija temporal para debug */
-    object-fit: cover;
-    background-color: #f0f0f0; /* Color de fondo si falla */
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
 }
 
 .responsive-img:hover {

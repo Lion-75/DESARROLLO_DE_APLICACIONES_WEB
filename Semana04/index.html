@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Semana 4 - Bootstrap 5 y CSS3</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+</head>
+<body>
+    
+   <!-- Barra de Navegación -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#">
+            <i class="bi bi-code-slash me-2"></i>DevWeb Bootstrap
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#inicio">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#servicios">Servicios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#galeria">Galería</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contacto">Contacto</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                        Más
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#acerca">Acerca de</a></li>
+                        <li><a class="dropdown-item" href="#equipo">Equipo</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#recursos">Recursos</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Contenido Principal -->
+<main class="pt-5">
+    
+    <!-- Sección Hero/Encabezado -->
+    <section id="inicio" class="hero-section py-5 mt-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">Desarrollo Web Moderno con Bootstrap 5</h1>
+                    <p class="lead mb-4">
+                        Aprende a crear interfaces web responsivas y atractivas utilizando las últimas técnicas de CSS3 y el poderoso framework Bootstrap 5.
+                    </p>
+                    <div class="d-grid gap-2 d-md-flex">
+                        <button class="btn btn-primary btn-lg px-4 me-2" data-bs-toggle="modal" data-bs-target="#infoModal">
+                            Más Información
+                        </button>
+                        <a href="#contacto" class="btn btn-outline-primary btn-lg px-4">
+                            Contáctanos
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="assets/img/desarrollo-web.jpg" alt="Desarrollo web moderno" class="img-fluid rounded shadow-lg hero-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Servicios -->
+    <section id="servicios" class="services-section py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5 display-5 fw-semibold">Nuestros Servicios</h2>
+            <div class="row g-4">
+                <!-- Card 1 -->
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm hover-card">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon mb-3">
+                                <i class="bi bi-laptop fs-1 text-primary"></i>
+                            </div>
+                            <h3 class="card-title h4 mb-3">Diseño Web</h3>
+                            <p class="card-text">
+                                Creamos diseños modernos y atractivos que se adaptan a todos los dispositivos utilizando las mejores prácticas de diseño responsivo.
+                            </p>
+                            <button class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#collapseDesign">
+                                Ver Detalles
+                            </button>
+                            <div class="collapse mt-3" id="collapseDesign">
+                                <div class="card card-body">
+                                    <p>Utilizamos HTML5 semántico, CSS3 avanzado y JavaScript moderno para crear experiencias de usuario excepcionales.</p>
+                                    <ul class="text-start">
+                                        <li>Diseño Mobile-First</li>
+                                        <li>Optimización SEO</li>
+                                        <li>Accesibilidad Web</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm hover-card">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon mb-3">
+                                <i class="bi bi-phone fs-1 text-primary"></i>
+                            </div>
+                            <h3 class="card-title h4 mb-3">Desarrollo Móvil</h3>
+                            <p class="card-text">
+                                Desarrollamos aplicaciones móviles responsive que funcionan perfectamente en smartphones y tablets de todos los tamaños.
+                            </p>
+                            <button class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#collapseMobile">
+                                Ver Detalles
+                            </button>
+                            <div class="collapse mt-3" id="collapseMobile">
+                                <div class="card card-body">
+                                    <p>Enfoque en Progressive Web Apps (PWA) y diseño adaptativo para máxima compatibilidad.</p>
+                                    <ul class="text-start">
+                                        <li>PWA (Progressive Web Apps)</li>
+                                        <li>Cross-platform</li>
+                                        <li>Offline functionality</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm hover-card">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon mb-3">
+                                <i class="bi bi-gear fs-1 text-primary"></i>
+                            </div>
+                            <h3 class="card-title h4 mb-3">Optimización</h3>
+                            <p class="card-text">
+                                Mejoramos el rendimiento de sitios web existentes, optimizando velocidad, SEO y experiencia de usuario.
+                            </p>
+                            <button class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#collapseOptimize">
+                                Ver Detalles
+                            </button>
+                            <div class="collapse mt-3" id="collapseOptimize">
+                                <div class="card card-body">
+                                    <p>Análisis de rendimiento y optimización técnica para mejores resultados en Google PageSpeed.</p>
+                                    <ul class="text-start">
+                                        <li>Optimización de imágenes</li>
+                                        <li>Minificación de código</li>
+                                        <li>CDN implementation</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Galería -->
+    <section id="galeria" class="gallery-section py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 display-5 fw-semibold">Galería de Proyectos</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card gallery-card">
+                        <img src="assets/img/Proyecto-1.png" class="card-img-top" alt="Proyecto 1">
+                        <div class="card-body">
+                            <h5 class="card-title">E-commerce Responsive</h5>
+                            <p class="card-text">Tienda online con diseño mobile-first y checkout optimizado.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card gallery-card">
+                        <img src="assets/img/Proyecto-2.png" class="card-img-top" alt="Proyecto 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Portal Corporativo</h5>
+                            <p class="card-text">Sitio web corporativo con CMS personalizado y blog integrado.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card gallery-card">
+                        <img src="assets/img/Proyecto-3.png" class="card-img-top" alt="Proyecto 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Aplicación Educativa</h5>
+                            <p class="card-text">Plataforma de aprendizaje online con videos y ejercicios interactivos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Formulario de Contacto -->
+    <section id="contacto" class="contact-section py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="text-center mb-5 display-5 fw-semibold">Formulario de Contacto</h2>
+                    <form id="contactoForm" class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="nombre" class="form-label">Nombre Completo</label>
+                                <input type="text" class="form-control form-control-lg" id="nombre" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingresa tu nombre.
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control form-control-lg" id="email" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingresa un email válido.
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="asunto" class="form-label">Asunto</label>
+                                <select class="form-select form-select-lg" id="asunto" required>
+                                    <option value="" selected disabled>Selecciona un asunto</option>
+                                    <option value="consulta">Consulta General</option>
+                                    <option value="presupuesto">Solicitud de Presupuesto</option>
+                                    <option value="soporte">Soporte Técnico</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Por favor selecciona un asunto.
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="mensaje" class="form-label">Mensaje</label>
+                                <textarea class="form-control form-control-lg" id="mensaje" rows="5" required></textarea>
+                                <div class="invalid-feedback">
+                                    Por favor escribe tu mensaje.
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="privacidad" required>
+                                    <label class="form-check-label" for="privacidad">
+                                        Acepto la política de privacidad
+                                    </label>
+                                    <div class="invalid-feedback">
+                                        Debes aceptar la política de privacidad.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary btn-lg px-5">
+                                    <i class="bi bi-send me-2"></i>Enviar Mensaje
+                                </button>
+                                <button type="reset" class="btn btn-outline-secondary btn-lg px-5 ms-2">
+                                    <i class="bi bi-eraser me-2"></i>Limpiar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de Información -->
+    <div class="modal fade" id="infoModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Información del Proyecto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Este proyecto demuestra el uso de:</p>
+                    <ul>
+                        <li>Bootstrap 5 para componentes y grid system</li>
+                        <li>CSS3 avanzado con animaciones y transiciones</li>
+                        <li>Diseño responsivo con media queries</li>
+                        <li>JavaScript para interactividad</li>
+                    </ul>
+                    <p>Es un proyecto educativo para la asignatura de Desarrollo de Aplicaciones Web.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- Pie de Página -->
+<footer class="footer bg-dark text-white py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-3 mb-md-0">
+                <h5 class="fw-bold">DevWeb Bootstrap</h5>
+                <p class="mb-0">Desarrollo web moderno con las mejores tecnologías.</p>
+            </div>
+            <div class="col-md-4 mb-3 mb-md-0">
+                <h5 class="fw-bold">Enlaces Rápidos</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#inicio" class="text-white text-decoration-none">Inicio</a></li>
+                    <li><a href="#servicios" class="text-white text-decoration-none">Servicios</a></li>
+                    <li><a href="#contacto" class="text-white text-decoration-none">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5 class="fw-bold">Contacto</h5>
+                <p class="mb-1">Email: info@devwebbootstrap.com</p>
+                <p class="mb-0">Teléfono: +593 XX XXX XXXX</p>
+            </div>
+        </div>
+        <hr class="my-4 bg-light">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="mb-0">&copy; 2024 Desarrollo de Aplicaciones Web. Todos los derechos reservados.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <p class="mb-0">Universidad Estatal Amazónica - Semana 4</p>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+    <!-- Bootstrap 5 JS Bundle con Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript personalizado -->
+    <script src="script.js" defer></script>
+</body>
+</html>
