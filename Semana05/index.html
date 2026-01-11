@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería Interactiva con JavaScript - Semana 5</title>
+    
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    
+    <style>
+        /* Estilos inline para prevenir FOUC (Flash of Unstyled Content) */
+        body { 
+            opacity: 0; 
+            transition: opacity 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        body.loaded { 
+            opacity: 1; 
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor principal -->
+    <div class="container">
+        
+        <!-- Encabezado -->
+        <header class="header">
+            <h1 class="title">
+                <i class="fas fa-images"></i> Galería Interactiva
+            </h1>
+            <p class="subtitle">Agrega, selecciona y gestiona imágenes de forma dinámica con JavaScript</p>
+        </header>
+
+        <!-- Panel de Control -->
+        <section class="control-panel">
+            <div class="input-group">
+                <div class="input-wrapper">
+                    <label for="imageUrl" class="input-label">
+                        <i class="fas fa-link"></i> URL de la imagen
+                    </label>
+                    <div class="input-container">
+                        <input 
+                            type="url" 
+                            id="imageUrl" 
+                            class="url-input" 
+                            placeholder="https://ejemplo.com/imagen.jpg" 
+                            autocomplete="off"
+                            spellcheck="false"
+                        >
+                        <button id="clearInput" class="clear-btn" aria-label="Limpiar campo">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <small class="input-hint">
+                        Ingresa una URL válida de imagen (JPG, PNG, GIF, SVG)
+                    </small>
+                </div>
+                
+                <div class="button-group">
+                    <button id="addImageBtn" class="btn btn-primary">
+                        <i class="fas fa-plus-circle"></i> Agregar Imagen
+                    </button>
+                    <button id="deleteSelectedBtn" class="btn btn-danger" disabled>
+                        <i class="fas fa-trash-alt"></i> Eliminar Seleccionada
+                    </button>
+                    <button id="clearGalleryBtn" class="btn btn-secondary">
+                        <i class="fas fa-broom"></i> Limpiar Galería
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contador y estadísticas -->
+            <div class="stats-panel">
+                <div class="stat-item">
+                    <span class="stat-label">Imágenes totales:</span>
+                    <span id="totalImages" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Imagen seleccionada:</span>
+                    <span id="selectedImage" class="stat-value">Ninguna</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Tamaño galería:</span>
+                    <span id="gallerySize" class="stat-value">0 MB</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mensajes de estado -->
+        <div id="messageContainer" class="message-container"></div>
+
+        <!-- Galería de Imágenes -->
+        <section class="gallery-section">
+            <h2 class="section-title">
+                <i class="fas fa-th"></i> Galería de Imágenes
+                <span id="galleryCount" class="badge">0</span>
+            </h2>
+            
+            <div class="gallery-actions">
+                <div class="view-options">
+                    <button id="gridViewBtn" class="view-btn active" data-view="grid">
+                        <i class="fas fa-th-large"></i> Cuadrícula
+                    </button>
+                    <button id="listViewBtn" class="view-btn" data-view="list">
+                        <i class="fas fa-list"></i> Lista
+                    </button>
+                </div>
+                <div class="sort-options">
+                    <label for="sortSelect">Ordenar por:</label>
+                    <select id="sortSelect" class="sort-select">
+                        <option value="added">Fecha de agregado</option>
+                        <option value="name">Nombre (A-Z)</option>
+                        <option value="size">Tamaño</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Contenedor de la galería -->
+            <div id="galleryContainer" class="gallery-container grid-view">
+                <!-- Las imágenes se agregarán aquí dinámicamente -->
+                <div class="empty-gallery">
+                    <div class="empty-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3>Galería vacía</h3>
+                    <p>Agrega tu primera imagen usando el campo de URL arriba</p>
+                    <div class="sample-images">
+                        <p>Prueba con estas URLs de ejemplo:</p>
+                        <ul class="sample-list">
+                            <li>
+                                <button class="sample-btn" data-url="https://images.unsplash.com/photo-1506744038136-46273834b3fb">
+                                    Paisaje montañoso
+                                </button>
+                            </li>
+                            <li>
+                                <button class="sample-btn" data-url="https://images.unsplash.com/photo-1519681393784-d120267933ba">
+                                    Ciudad nocturna
+                                </button>
+                            </li>
+                            <li>
+                                <button class="sample-btn" data-url="https://images.unsplash.com/photo-1518837695005-2083093ee35b">
+                                    Océano y playa
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instrucciones de uso -->
+            <div class="instructions">
+                <h4><i class="fas fa-info-circle"></i> Instrucciones de uso:</h4>
+                <ol class="instruction-list">
+                    <li>Pega una URL de imagen en el campo de texto</li>
+                    <li>Haz clic en "Agregar Imagen" o presiona Enter</li>
+                    <li>Haz clic en cualquier imagen para seleccionarla</li>
+                    <li>Usa "Eliminar Seleccionada" para remover imágenes</li>
+                    <li>Puedes usar las teclas:
+                        <kbd>←</kbd> <kbd>→</kbd> para navegar,
+                        <kbd>Enter</kbd> para agregar,
+                        <kbd>Delete</kbd> para eliminar
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Modal para vista previa -->
+        <div id="imageModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <div class="modal-body">
+                    <img id="modalImage" src="" alt="Vista previa">
+                    <div class="image-info">
+                        <h3 id="modalTitle">Título de la imagen</h3>
+                        <p id="modalUrl">URL: <a href="#" target="_blank"></a></p>
+                        <p id="modalSize">Tamaño: --</p>
+                        <p id="modalDimensions">Dimensiones: --</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="modalDeleteBtn" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </button>
+                    <button id="modalCloseBtn" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie de página -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Galería Interactiva</h4>
+                    <p>Proyecto de JavaScript - Manipulación del DOM</p>
+                    <p>Desarrollo de Aplicaciones Web - Semana 5</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Funcionalidades</h4>
+                    <ul>
+                        <li>Agregar imágenes por URL</li>
+                        <li>Selección única</li>
+                        <li>Eliminación dinámica</li>
+                        <li>Vista previa modal</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Atajos de teclado</h4>
+                    <ul>
+                        <li><kbd>Enter</kbd>: Agregar imagen</li>
+                        <li><kbd>Delete</kbd>: Eliminar selección</li>
+                        <li><kbd>Esc</kbd>: Cerrar modal</li>
+                        <li><kbd>←</kbd><kbd>→</kbd>: Navegar</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Desarrollo de Aplicaciones Web - Universidad Estatal Amazónica</p>
+                <p class="student-info">Estudiante: Gabriel Isaiasi Lino Burgos</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js" defer></script>
+    
+    <script>
+        // Script para prevenir FOUC
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.classList.add('loaded');
+            
+            // Precargar fuentes para mejor rendimiento
+            if ('fonts' in document) {
+                document.fonts.load('1em "Inter"').then(function() {
+                    console.log('Fuente Inter cargada');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
