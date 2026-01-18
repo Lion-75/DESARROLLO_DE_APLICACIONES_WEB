@@ -1,0 +1,1106 @@
+/* ============================================
+   FORMULARIO CON VALIDACIÓN DINÁMICA - ESTILOS CSS
+   Proyecto Semana 6 - JavaScript
+   ============================================ */
+
+/* ============================================
+   1. VARIABLES Y RESET
+   ============================================ */
+:root {
+    /* Colores principales */
+    --primary-color: #4361ee;
+    --primary-dark: #3a56d4;
+    --secondary-color: #7209b7;
+    --success-color: #4cc9f0;
+    --danger-color: #f72585;
+    --warning-color: #f8961e;
+    --info-color: #4895ef;
+    
+    /* Colores de validación */
+    --valid-color: #2ecc71;
+    --invalid-color: #e74c3c;
+    --pending-color: #f39c12;
+    --neutral-color: #95a5a6;
+    
+    /* Colores de fortaleza de contraseña */
+    --strength-weak: #e74c3c;
+    --strength-moderate: #f39c12;
+    --strength-strong: #2ecc71;
+    --strength-very-strong: #27ae60;
+    
+    /* Colores neutros */
+    --dark-color: #212529;
+    --light-color: #f8f9fa;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --gray-800: #343a40;
+    --gray-900: #212529;
+    
+    /* Sombras */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+    --shadow-primary: 0 4px 14px rgba(67, 97, 238, 0.3);
+    --shadow-success: 0 4px 14px rgba(46, 204, 113, 0.3);
+    --shadow-danger: 0 4px 14px rgba(231, 76, 60, 0.3);
+    
+    /* Bordes y radios */
+    --border-radius: 12px;
+    --border-radius-sm: 8px;
+    --border-radius-lg: 16px;
+    --border-radius-full: 50%;
+    
+    /* Transiciones */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    
+    /* Espaciado */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+}
+
+/* Reset y estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    color: var(--dark-color);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: var(--spacing-sm);
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-xl);
+    overflow: hidden;
+}
+
+/* ============================================
+   2. ENCABEZADO
+   ============================================ */
+.header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: var(--spacing-xl) var(--spacing-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+}
+
+.title i {
+    font-size: 2.2rem;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    font-weight: 300;
+    margin-bottom: var(--spacing-md);
+}
+
+.header-badge {
+    display: inline-block;
+    margin-top: var(--spacing-sm);
+}
+
+.badge {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius-full);
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Progress Indicator */
+.progress-indicator {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius);
+    margin-top: var(--spacing-md);
+}
+
+.progress-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success-color), #2ecc71);
+    width: 0%;
+    border-radius: 4px;
+    transition: width var(--transition-slow) ease;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ============================================
+   3. PANEL DE INFORMACIÓN
+   ============================================ */
+.info-panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background: var(--gray-100);
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.info-card {
+    background: white;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-normal);
+    border: 2px solid transparent;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-color);
+}
+
+.info-card i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.info-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-xs);
+    color: var(--gray-800);
+}
+
+.info-card p {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   4. FORMULARIO PRINCIPAL
+   ============================================ */
+.form-container {
+    padding: var(--spacing-xl);
+}
+
+.registration-form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Secciones del formulario */
+.form-section {
+    border: 2px solid var(--gray-200);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    background: white;
+    transition: border-color var(--transition-normal);
+}
+
+.form-section:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-primary);
+}
+
+.section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    padding: 0 var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.section-title i {
+    color: var(--primary-color);
+}
+
+/* Grupos de formulario */
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.label-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-xs);
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--gray-800);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-label i {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}
+
+.required-indicator {
+    color: var(--danger-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Contenedor de input */
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.form-input {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    font-size: 1rem;
+    border: 2px solid var(--gray-300);
+    border-radius: var(--border-radius-sm);
+    background: white;
+    transition: var(--transition-normal);
+    font-family: 'Inter', sans-serif;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-primary);
+}
+
+/* Estados de validación */
+.form-input.valid {
+    border-color: var(--valid-color);
+    background-color: rgba(46, 204, 113, 0.05);
+}
+
+.form-input.invalid {
+    border-color: var(--invalid-color);
+    background-color: rgba(231, 76, 60, 0.05);
+}
+
+.form-input.pending {
+    border-color: var(--pending-color);
+    background-color: rgba(243, 156, 18, 0.05);
+}
+
+/* Iconos de input */
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    color: var(--gray-500);
+    font-size: 1rem;
+    transition: var(--transition-normal);
+}
+
+.form-input:focus + .input-icon {
+    color: var(--primary-color);
+}
+
+.form-input.valid + .input-icon {
+    color: var(--valid-color);
+}
+
+.form-input.invalid + .input-icon {
+    color: var(--invalid-color);
+}
+
+/* Botón mostrar/ocultar contraseña */
+.toggle-password {
+    position: absolute;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--gray-500);
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1rem;
+    transition: var(--transition-fast);
+    border-radius: var(--border-radius-sm);
+}
+
+.toggle-password:hover {
+    color: var(--primary-color);
+    background: var(--gray-200);
+}
+
+/* Información de validación */
+.validation-info {
+    margin-top: var(--spacing-xs);
+}
+
+.hint {
+    display: block;
+    color: var(--gray-600);
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+    font-style: italic;
+}
+
+.error-message {
+    color: var(--invalid-color);
+    font-size: 0.85rem;
+    font-weight: 500;
+    min-height: 1.2rem;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: var(--transition-normal);
+}
+
+.error-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================
+   5. REQUISITOS DE CONTRASEÑA
+   ============================================ */
+.password-requirements {
+    margin: var(--spacing-sm) 0;
+    padding: var(--spacing-sm);
+    background: var(--gray-100);
+    border-radius: var(--border-radius-sm);
+}
+
+.password-requirements h4 {
+    font-size: 0.9rem;
+    color: var(--gray-700);
+    margin-bottom: var(--spacing-xs);
+}
+
+.requirements-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.requirement {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.85rem;
+    color: var(--gray-600);
+    transition: var(--transition-fast);
+}
+
+.requirement i {
+    font-size: 0.5rem;
+    transition: var(--transition-fast);
+}
+
+.requirement.valid {
+    color: var(--valid-color);
+}
+
+.requirement.valid i {
+    color: var(--valid-color);
+}
+
+.requirement.invalid {
+    color: var(--invalid-color);
+}
+
+.requirement.invalid i {
+    color: var(--invalid-color);
+}
+
+/* ============================================
+   6. INDICADOR DE FORTALEZA DE CONTRASEÑA
+   ============================================ */
+.password-strength {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-sm);
+    background: var(--gray-100);
+    border-radius: var(--border-radius-sm);
+}
+
+.strength-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.9rem;
+    color: var(--gray-700);
+}
+
+#strengthText {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.strength-meter {
+    height: 8px;
+    background: var(--gray-300);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: var(--spacing-xs);
+}
+
+.strength-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: 4px;
+    transition: var(--transition-slow);
+}
+
+.strength-levels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--gray-500);
+}
+
+.level {
+    transition: var(--transition-normal);
+}
+
+.level.active {
+    font-weight: 600;
+}
+
+.level.weak.active {
+    color: var(--strength-weak);
+}
+
+.level.moderate.active {
+    color: var(--strength-moderate);
+}
+
+.level.strong.active {
+    color: var(--strength-strong);
+}
+
+.level.very-strong.active {
+    color: var(--strength-very-strong);
+}
+
+/* ============================================
+   7. CHECKBOXES
+   ============================================ */
+.checkbox-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+}
+
+.checkbox-input {
+    display: none;
+}
+
+.custom-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--gray-400);
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    transition: var(--transition-fast);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.checkbox-input:checked + .checkbox-label .custom-checkbox {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.checkbox-input:checked + .checkbox-label .custom-checkbox::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.checkbox-input:focus + .checkbox-label .custom-checkbox {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    cursor: pointer;
+    user-select: none;
+    color: var(--gray-700);
+}
+
+.checkbox-text {
+    flex: 1;
+    line-height: 1.4;
+}
+
+.terms-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.terms-link:hover {
+    text-decoration: underline;
+}
+
+/* ============================================
+   8. RESUMEN DE VALIDACIÓN
+   ============================================ */
+.validation-summary {
+    background: var(--gray-100);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    border: 2px solid var(--gray-200);
+}
+
+.summary-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    color: var(--gray-800);
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.summary-title i {
+    color: var(--primary-color);
+}
+
+.summary-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: 0.75rem;
+    background: white;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.9rem;
+    transition: var(--transition-fast);
+}
+
+.summary-item i {
+    font-size: 1rem;
+    transition: var(--transition-fast);
+}
+
+.summary-item.valid {
+    background: rgba(46, 204, 113, 0.1);
+    border-left: 3px solid var(--valid-color);
+}
+
+.summary-item.valid i {
+    color: var(--valid-color);
+}
+
+.summary-item.invalid {
+    background: rgba(231, 76, 60, 0.1);
+    border-left: 3px solid var(--invalid-color);
+}
+
+.summary-item.invalid i {
+    color: var(--invalid-color);
+}
+
+.summary-item.pending {
+    background: rgba(243, 156, 18, 0.1);
+    border-left: 3px solid var(--pending-color);
+}
+
+.summary-item.pending i {
+    color: var(--pending-color);
+}
+
+.summary-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--gray-300);
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.stat-label {
+    font-weight: 500;
+    color: var(--gray-700);
+    font-size: 0.9rem;
+}
+
+.stat-value {
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--border-radius-sm);
+    background: var(--gray-200);
+}
+
+#formStatus.valid {
+    background: var(--valid-color);
+    color: white;
+}
+
+#formStatus.invalid {
+    background: var(--invalid-color);
+    color: white;
+}
+
+/* ============================================
+   9. BOTONES DE ACCIÓN
+   ============================================ */
+.form-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-top: var(--spacing-lg);
+    border-top: 2px solid var(--gray-200);
+}
+
+.btn {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    min-width: 180px;
+}
+
+.btn i {
+    font-size: 1.1rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-primary);
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.btn-secondary {
+    background: var(--gray-200);
+    color: var(--gray-700);
+}
+
+.btn-secondary:hover {
+    background: var(--gray-300);
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-outline:hover {
+    background: rgba(67, 97, 238, 0.1);
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   10. MODAL DE ÉXITO
+   ============================================ */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 0;
+    width: 90%;
+    max-width: 500px;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.success-modal {
+    text-align: center;
+    padding: var(--spacing-xl);
+}
+
+.modal-icon {
+    font-size: 4rem;
+    color: var(--valid-color);
+    margin-bottom: var(--spacing-md);
+    animation: bounce 1s ease;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+.modal-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    color: var(--gray-800);
+    margin-bottom: var(--spacing-sm);
+}
+
+.modal-message {
+    color: var(--gray-600);
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.6;
+}
+
+.modal-data {
+    background: var(--gray-100);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+    text-align: left;
+    margin-bottom: var(--spacing-lg);
+    border-left: 4px solid var(--valid-color);
+}
+
+.modal-data h4 {
+    margin-bottom: var(--spacing-sm);
+    color: var(--gray-700);
+}
+
+.modal-data ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.modal-data li {
+    margin-bottom: 0.5rem;
+    color: var(--gray-600);
+    font-size: 0.9rem;
+}
+
+.modal-data strong {
+    color: var(--gray-800);
+    font-weight: 600;
+}
+
+.modal-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+}
+
+/* ============================================
+   11. PIE DE PÁGINA
+   ============================================ */
+.footer {
+    background: linear-gradient(135deg, var(--gray-800), var(--gray-900));
+    color: white;
+    padding: var(--spacing-xl);
+    margin-top: var(--spacing-lg);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.footer-section h4 {
+    color: white;
+    margin-bottom: var(--spacing-md);
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-section p {
+    color: var(--gray-400);
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.footer-section li {
+    margin-bottom: 0.5rem;
+    color: var(--gray-400);
+    font-size: 0.9rem;
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--gray-700);
+    padding-top: var(--spacing-md);
+    text-align: center;
+    color: var(--gray-400);
+    font-size: 0.9rem;
+}
+
+.footer-note {
+    margin-top: 0.5rem;
+    font-style: italic;
+    color: var(--gray-500);
+}
+
+/* ============================================
+   12. RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 768px) {
+    .container {
+        border-radius: 0;
+        margin: 0;
+    }
+    
+    body {
+        padding: 0;
+    }
+    
+    .title {
+        font-size: 2rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .form-section {
+        padding: var(--spacing-md);
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .summary-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+    }
+    
+    .info-panel {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 1.7rem;
+    }
+    
+    .header {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+    
+    .form-container {
+        padding: var(--spacing-md);
+    }
+    
+    .form-input {
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+    }
+    
+    .input-icon {
+        left: 0.75rem;
+    }
+    
+    .toggle-password {
+        right: 0.75rem;
+    }
+}
+
+/* ============================================
+   13. ANIMACIONES Y EFECTOS
+   ============================================ */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+    animation: shake 0.5s ease;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.pulse {
+    animation: pulse 1.5s ease infinite;
+}
+
+/* ============================================
+   14. UTILIDADES
+   ============================================ */
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block !important;
+}
+
+.text-success {
+    color: var(--valid-color) !important;
+}
+
+.text-danger {
+    color: var(--invalid-color) !important;
+}
+
+.text-warning {
+    color: var(--pending-color) !important;
+}
+
+.bg-success {
+    background-color: rgba(46, 204, 113, 0.1) !important;
+}
+
+.bg-danger {
+    background-color: rgba(231, 76, 60, 0.1) !important;
+}
+
+.bg-warning {
+    background-color: rgba(243, 156, 18, 0.1) !important;
+}

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario con Validación Dinámica - Semana 6</title>
+    
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📋</text></svg>">
+    
+    <style>
+        /* Estilos iniciales para prevenir FOUC */
+        body { 
+            opacity: 0; 
+            transition: opacity 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        body.loaded { 
+            opacity: 1; 
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor principal -->
+    <div class="container">
+        
+        <!-- Encabezado -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">
+                    <i class="fas fa-clipboard-check"></i> Formulario de Registro
+                </h1>
+                <p class="subtitle">Validación dinámica en tiempo real con JavaScript</p>
+                <div class="header-badge">
+                    <span class="badge">
+                        <i class="fas fa-shield-alt"></i> Validación Segura
+                    </span>
+                </div>
+            </div>
+            
+            <div class="progress-indicator">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="formProgress"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="progressPercentage">0%</span> completado
+                </div>
+            </div>
+        </header>
+
+        <!-- Panel de información -->
+        <section class="info-panel">
+            <div class="info-card">
+                <i class="fas fa-info-circle"></i>
+                <h3>Instrucciones</h3>
+                <p>Completa todos los campos. La validación se realiza en tiempo real.</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Requisitos</h3>
+                <p>Verifica que cumplas con todos los criterios de validación.</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-bolt"></i>
+                <h3>Validación Instantánea</h3>
+                <p>Los errores se muestran inmediatamente al escribir.</p>
+            </div>
+        </section>
+
+        <!-- Formulario Principal -->
+        <main class="form-container">
+            <form id="registrationForm" class="registration-form" novalidate>
+                
+                <!-- Sección de Información Personal -->
+                <fieldset class="form-section">
+                    <legend class="section-title">
+                        <i class="fas fa-user"></i> Información Personal
+                    </legend>
+                    
+                    <!-- Campo Nombre -->
+                    <div class="form-group">
+                        <div class="label-container">
+                            <label for="nombre" class="form-label">
+                                <i class="fas fa-signature"></i> Nombre Completo
+                            </label>
+                            <span class="required-indicator">*</span>
+                        </div>
+                        <div class="input-container">
+                            <input 
+                                type="text" 
+                                id="nombre" 
+                                name="nombre"
+                                class="form-input"
+                                placeholder="Ej: Juan Pérez"
+                                autocomplete="name"
+                                minlength="3"
+                                required
+                            >
+                            <div class="input-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        <div class="validation-info">
+                            <small class="hint">Mínimo 3 caracteres. Solo letras y espacios.</small>
+                            <div class="error-message" id="nombreError"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Campo Email -->
+                    <div class="form-group">
+                        <div class="label-container">
+                            <label for="email" class="form-label">
+                                <i class="fas fa-envelope"></i> Correo Electrónico
+                            </label>
+                            <span class="required-indicator">*</span>
+                        </div>
+                        <div class="input-container">
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email"
+                                class="form-input"
+                                placeholder="ejemplo@correo.com"
+                                autocomplete="email"
+                                required
+                            >
+                            <div class="input-icon">
+                                <i class="fas fa-at"></i>
+                            </div>
+                        </div>
+                        <div class="validation-info">
+                            <small class="hint">Debe ser una dirección de correo válida.</small>
+                            <div class="error-message" id="emailError"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Campo Edad -->
+                    <div class="form-group">
+                        <div class="label-container">
+                            <label for="edad" class="form-label">
+                                <i class="fas fa-birthday-cake"></i> Edad
+                            </label>
+                            <span class="required-indicator">*</span>
+                        </div>
+                        <div class="input-container">
+                            <input 
+                                type="number" 
+                                id="edad" 
+                                name="edad"
+                                class="form-input"
+                                placeholder="18"
+                                min="18"
+                                max="120"
+                                required
+                            >
+                            <div class="input-icon">
+                                <i class="fas fa-user-clock"></i>
+                            </div>
+                        </div>
+                        <div class="validation-info">
+                            <small class="hint">Debes ser mayor o igual a 18 años.</small>
+                            <div class="error-message" id="edadError"></div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Sección de Seguridad -->
+                <fieldset class="form-section">
+                    <legend class="section-title">
+                        <i class="fas fa-lock"></i> Seguridad
+                    </legend>
+                    
+                    <!-- Campo Contraseña -->
+                    <div class="form-group">
+                        <div class="label-container">
+                            <label for="password" class="form-label">
+                                <i class="fas fa-key"></i> Contraseña
+                            </label>
+                            <span class="required-indicator">*</span>
+                        </div>
+                        <div class="input-container">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password"
+                                class="form-input"
+                                placeholder="••••••••"
+                                autocomplete="new-password"
+                                minlength="8"
+                                required
+                            >
+                            <div class="input-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <button type="button" class="toggle-password" id="togglePassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="validation-info">
+                            <div class="password-requirements">
+                                <h4>Requisitos de contraseña:</h4>
+                                <ul class="requirements-list">
+                                    <li id="reqLength" class="requirement">
+                                        <i class="fas fa-circle"></i> Mínimo 8 caracteres
+                                    </li>
+                                    <li id="reqNumber" class="requirement">
+                                        <i class="fas fa-circle"></i> Al menos un número
+                                    </li>
+                                    <li id="reqSpecial" class="requirement">
+                                        <i class="fas fa-circle"></i> Al menos un carácter especial (!@#$%^&*)
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="error-message" id="passwordError"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Campo Confirmar Contraseña -->
+                    <div class="form-group">
+                        <div class="label-container">
+                            <label for="confirmPassword" class="form-label">
+                                <i class="fas fa-key"></i> Confirmar Contraseña
+                            </label>
+                            <span class="required-indicator">*</span>
+                        </div>
+                        <div class="input-container">
+                            <input 
+                                type="password" 
+                                id="confirmPassword" 
+                                name="confirmPassword"
+                                class="form-input"
+                                placeholder="••••••••"
+                                autocomplete="new-password"
+                                required
+                            >
+                            <div class="input-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <button type="button" class="toggle-password" id="toggleConfirmPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="validation-info">
+                            <small class="hint">Debe coincidir exactamente con la contraseña.</small>
+                            <div class="error-message" id="confirmPasswordError"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Indicador de Fortaleza de Contraseña -->
+                    <div class="password-strength">
+                        <div class="strength-label">
+                            <span>Fortaleza de contraseña:</span>
+                            <span id="strengthText">Débil</span>
+                        </div>
+                        <div class="strength-meter">
+                            <div class="strength-bar" id="strengthBar"></div>
+                        </div>
+                        <div class="strength-levels">
+                            <span class="level weak">Débil</span>
+                            <span class="level moderate">Moderada</span>
+                            <span class="level strong">Fuerte</span>
+                            <span class="level very-strong">Muy Fuerte</span>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Sección de Términos -->
+                <fieldset class="form-section">
+                    <legend class="section-title">
+                        <i class="fas fa-file-contract"></i> Términos y Condiciones
+                    </legend>
+                    
+                    <!-- Campo Checkbox Términos -->
+                    <div class="form-group checkbox-group">
+                        <div class="checkbox-container">
+                            <input 
+                                type="checkbox" 
+                                id="terminos" 
+                                name="terminos"
+                                class="checkbox-input"
+                                required
+                            >
+                            <label for="terminos" class="checkbox-label">
+                                <span class="custom-checkbox"></span>
+                                <span class="checkbox-text">
+                                    Acepto los 
+                                    <a href="#terminos-modal" class="terms-link">términos y condiciones</a>
+                                    y la 
+                                    <a href="#privacidad-modal" class="terms-link">política de privacidad</a>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="error-message" id="terminosError"></div>
+                    </div>
+                    
+                    <!-- Campo Checkbox Newsletter -->
+                    <div class="form-group checkbox-group">
+                        <div class="checkbox-container">
+                            <input 
+                                type="checkbox" 
+                                id="newsletter" 
+                                name="newsletter"
+                                class="checkbox-input"
+                            >
+                            <label for="newsletter" class="checkbox-label">
+                                <span class="custom-checkbox"></span>
+                                <span class="checkbox-text">
+                                    Deseo suscribirme al newsletter para recibir novedades
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Resumen de Validación -->
+                <div class="validation-summary">
+                    <h3 class="summary-title">
+                        <i class="fas fa-clipboard-list"></i> Resumen de Validación
+                    </h3>
+                    <div class="summary-content">
+                        <div class="summary-item" id="summaryNombre">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Nombre: Pendiente</span>
+                        </div>
+                        <div class="summary-item" id="summaryEmail">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Email: Pendiente</span>
+                        </div>
+                        <div class="summary-item" id="summaryEdad">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Edad: Pendiente</span>
+                        </div>
+                        <div class="summary-item" id="summaryPassword">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Contraseña: Pendiente</span>
+                        </div>
+                        <div class="summary-item" id="summaryConfirmPassword">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Confirmación: Pendiente</span>
+                        </div>
+                        <div class="summary-item" id="summaryTerminos">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Términos: Pendiente</span>
+                        </div>
+                    </div>
+                    <div class="summary-stats">
+                        <div class="stat">
+                            <span class="stat-label">Campos completados:</span>
+                            <span class="stat-value" id="completedFields">0/6</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Estado del formulario:</span>
+                            <span class="stat-value" id="formStatus">No válido</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="form-actions">
+                    <button type="submit" id="submitBtn" class="btn btn-primary" disabled>
+                        <i class="fas fa-paper-plane"></i> Enviar Formulario
+                    </button>
+                    <button type="reset" id="resetBtn" class="btn btn-secondary">
+                        <i class="fas fa-redo"></i> Reiniciar Formulario
+                    </button>
+                    <button type="button" id="testBtn" class="btn btn-outline">
+                        <i class="fas fa-vial"></i> Rellenar con Datos de Prueba
+                    </button>
+                </div>
+
+            </form>
+        </main>
+
+        <!-- Modal de Éxito (oculto inicialmente) -->
+        <div id="successModal" class="modal">
+            <div class="modal-content success-modal">
+                <div class="modal-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2 class="modal-title">¡Formulario Enviado Correctamente!</h2>
+                <p class="modal-message" id="successMessage">
+                    Todos los campos han sido validados correctamente.
+                </p>
+                <div class="modal-data" id="formDataPreview"></div>
+                <div class="modal-actions">
+                    <button type="button" id="closeModalBtn" class="btn btn-primary">
+                        <i class="fas fa-check"></i> Aceptar
+                    </button>
+                    <button type="button" id="printModalBtn" class="btn btn-outline">
+                        <i class="fas fa-print"></i> Imprimir
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie de Página -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>
+                        <i class="fas fa-graduation-cap"></i> Desarrollo de Aplicaciones Web
+                    </h4>
+                    <p>Semana 6 - Formulario con Validación Dinámica</p>
+                    <p>Universidad Estatal Amazónica</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4><i class="fas fa-user"></i> Estudiante</h4>
+                    <p>Gabriel Isaiasi Lino Burgos</p>
+                    <p>Carrera de Tecnologías de la Información</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4><i class="fas fa-code"></i> Tecnologías</h4>
+                    <ul>
+                        <li>HTML5 Semántico</li>
+                        <li>CSS3 Avanzado</li>
+                        <li>JavaScript (ES6+)</li>
+                        <li>Validación en Tiempo Real</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Desarrollo de Aplicaciones Web - Universidad Estatal Amazónica</p>
+                <p class="footer-note">
+                    Este formulario implementa validación dinámica con feedback visual inmediato.
+                </p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js" defer></script>
+    
+    <script>
+        // Script para prevenir FOUC
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.classList.add('loaded');
+        });
+    </script>
+</body>
+</html>
