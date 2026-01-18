@@ -31,7 +31,7 @@ Un formulario interactivo con validación en tiempo real implementado en JavaScr
 - Aceptación obligatoria de términos
 - Suscripción opcional al newsletter
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 - **HTML5**: Estructura semántica del formulario
 - **CSS3**: 
@@ -45,12 +45,12 @@ Un formulario interactivo con validación en tiempo real implementado en JavaScr
   - Eventos en tiempo real
   - Estado local del formulario
 
-## 🎨 Características de Diseño
+## Características de Diseño
 
 ### Feedback Visual
-- ✅ **Válido**: Borde verde, fondo verde claro
-- ❌ **Inválido**: Borde rojo, fondo rojo claro, animación shake
-- ⚠️ **Pendiente**: Borde naranja, fondo naranja claro
+- **Válido**: Borde verde, fondo verde claro
+- **Inválido**: Borde rojo, fondo rojo claro, animación shake
+- **Pendiente**: Borde naranja, fondo naranja claro
 
 ### Componentes Interactivos
 - **Progress Bar**: Muestra porcentaje de completado
@@ -63,29 +63,3 @@ Un formulario interactivo con validación en tiempo real implementado en JavaScr
 - **Botón de prueba**: Rellena automáticamente con datos válidos
 - **Mensajes toast**: Feedback temporal al usuario
 - **Validación mientras se escribe**: Respuesta inmediata
-
-## 📱 Compatibilidad
-
-- **Navegadores**: Chrome, Firefox, Safari, Edge (versiones modernas)
-- **Dispositivos**: Mobile, Tablet, Desktop
-- **Sistemas Operativos**: Windows, macOS, Linux, iOS, Android
-
-## 🔧 Instalación y Uso
-
-### Opción 1: Usar Online
-1. Accede a la página en GitHub Pages
-2. Completa el formulario
-3. Observa la validación en tiempo real
-
-### Opción 2: Ejecutar Localmente
-```bash
-# Clonar el repositorio
-git clone https://github.com/tu-usuario/DESARROLLO_DE_APLICACIONES_WEB.git
-
-# Navegar a la carpeta
-cd DESARROLLO_DE_APLICACIONES_WEB/Semana06
-
-# Abrir en el navegador
-open index.html  # macOS
-start index.html # Windows
-xdg-open index.html # Linux
