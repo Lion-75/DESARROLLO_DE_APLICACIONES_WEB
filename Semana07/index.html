@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Dinámica de Productos - Semana 7</title>
+    <style>
+        /* Estilos mínimos según tarea - no avanzados */
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        
+        .container {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        
+        .product-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .product-item {
+            background-color: white;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .product-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .product-price {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .product-description {
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .add-product-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        
+        .add-product-btn:hover {
+            background-color: #45a049;
+        }
+        
+        .product-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 Lista de Productos</h1>
+        
+        <!-- Contenedor para la lista de productos -->
+        <ul id="productList" class="product-list">
+            <!-- Los productos se renderizarán aquí dinámicamente -->
+        </ul>
+        
+        <!-- Botón para agregar nuevo producto -->
+        <button id="addProductBtn" class="add-product-btn">
+            + Agregar Nuevo Producto
+        </button>
+        
+        <!-- Formulario para agregar producto (inicialmente oculto) -->
+        <div id="productForm" class="product-form">
+            <h3>Agregar Nuevo Producto</h3>
+            <div class="form-group">
+                <label for="productName">Nombre del Producto:</label>
+                <input type="text" id="productName" placeholder="Ej: Laptop Gamer">
+            </div>
+            
+            <div class="form-group">
+                <label for="productPrice">Precio ($):</label>
+                <input type="number" id="productPrice" placeholder="Ej: 999.99" min="0" step="0.01">
+            </div>
+            
+            <div class="form-group">
+                <label for="productDescription">Descripción:</label>
+                <textarea id="productDescription" placeholder="Describe el producto..."></textarea>
+            </div>
+            
+            <div class="form-buttons">
+                <button id="cancelBtn" class="btn btn-secondary">Cancelar</button>
+                <button id="saveProductBtn" class="btn btn-primary">Guardar Producto</button>
+            </div>
+        </div>
+        
+        <!-- Mensaje cuando no hay productos -->
+        <div id="emptyMessage" style="text-align: center; padding: 40px; color: #999; display: none;">
+            <p>No hay productos en la lista.</p>
+            <p>¡Haz clic en "Agregar Nuevo Producto" para empezar!</p>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
