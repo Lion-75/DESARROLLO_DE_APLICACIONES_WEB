@@ -1,0 +1,529 @@
+/* ============================================
+   TECHSTORE - CSS PERSONALIZADO
+   Proyecto Semana 8 - Bootstrap + JavaScript
+   ============================================ */
+
+/* ============================================
+   1. VARIABLES CSS PARA TEMA PERSONALIZADO
+   ============================================ */
+:root {
+    /* Colores principales personalizados */
+    --tech-primary: #0d6efd;
+    --tech-secondary: #6c757d;
+    --tech-success: #198754;
+    --tech-danger: #dc3545;
+    --tech-warning: #ffc107;
+    --tech-info: #0dcaf0;
+    --tech-dark: #212529;
+    --tech-light: #f8f9fa;
+    
+    /* Colores de acento personalizados */
+    --tech-accent: #6610f2;
+    --tech-accent-light: #8a42ff;
+    --tech-accent-dark: #4a0cb3;
+    
+    /* Colores de fondo personalizados */
+    --tech-bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --tech-card-bg: #ffffff;
+    --tech-footer-bg: #1a1a1a;
+    
+    /* Sombras personalizadas */
+    --tech-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --tech-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+    --tech-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16);
+    --tech-shadow-primary: 0 4px 14px rgba(13, 110, 253, 0.25);
+    
+    /* Bordes personalizados */
+    --tech-border-radius: 12px;
+    --tech-border-radius-sm: 8px;
+    --tech-border-radius-lg: 16px;
+    
+    /* Transiciones personalizadas */
+    --tech-transition-fast: 0.2s ease;
+    --tech-transition-normal: 0.3s ease;
+    --tech-transition-slow: 0.5s ease;
+}
+
+/* ============================================
+   2. ESTILOS GENERALES PERSONALIZADOS
+   ============================================ */
+
+/* Ajuste para navbar fija */
+body {
+    padding-top: 76px;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* Mejora de contraste para texto */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    color: var(--tech-dark);
+}
+
+/* Personalización de enlaces */
+a {
+    color: var(--tech-primary);
+    text-decoration: none;
+    transition: var(--tech-transition-fast);
+}
+
+a:hover {
+    color: var(--tech-accent);
+    text-decoration: underline;
+}
+
+/* Personalización de contenedores */
+.container {
+    max-width: 1200px;
+}
+
+/* ============================================
+   3. PERSONALIZACIÓN DE COMPONENTES BOOTSTRAP
+   ============================================ */
+
+/* Navbar personalizada */
+.navbar {
+    background: var(--tech-bg-gradient) !important;
+    border-bottom: 3px solid var(--tech-accent);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.nav-link {
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    border-radius: var(--tech-border-radius-sm);
+    margin: 0 2px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background-color: rgba(255, 255, 255, 0.15);
+    text-decoration: none;
+}
+
+/* Carrusel personalizado */
+.carousel {
+    border-radius: var(--tech-border-radius-lg);
+    overflow: hidden;
+    border: 3px solid var(--tech-primary);
+}
+
+.carousel-item img {
+    height: 500px;
+    object-fit: cover;
+}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.7) !important;
+    backdrop-filter: blur(10px);
+    border-radius: var(--tech-border-radius);
+    padding: 1.5rem !important;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 20px;
+}
+
+.carousel-indicators button {
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 50%;
+    margin: 0 6px !important;
+}
+
+/* Tabla personalizada */
+.table {
+    border-radius: var(--tech-border-radius);
+    overflow: hidden;
+    border: 1px solid #dee2e6;
+}
+
+.table thead th {
+    background: linear-gradient(135deg, var(--tech-primary), var(--tech-accent));
+    color: white;
+    border: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.1);
+    transform: translateX(5px);
+    transition: var(--tech-transition-normal);
+}
+
+/* Cards personalizadas */
+.card {
+    border: none;
+    border-radius: var(--tech-border-radius);
+    transition: var(--tech-transition-normal);
+    background-color: var(--tech-card-bg);
+}
+
+.hover-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--tech-shadow-lg) !important;
+    border-color: var(--tech-primary);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: var(--tech-border-radius);
+    border-top-right-radius: var(--tech-border-radius);
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--tech-primary), var(--tech-accent));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: white;
+}
+
+/* Formulario personalizado */
+.form-control,
+.form-select {
+    border: 2px solid #dee2e6;
+    border-radius: var(--tech-border-radius-sm);
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: var(--tech-transition-normal);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--tech-primary);
+    box-shadow: var(--tech-shadow-primary);
+    outline: none;
+}
+
+.form-control-lg {
+    padding: 1rem 1.25rem;
+    font-size: 1.125rem;
+}
+
+/* Botones personalizados */
+.btn {
+    border-radius: var(--tech-border-radius-sm);
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    transition: var(--tech-transition-normal);
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--tech-primary), var(--tech-accent));
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--tech-accent-dark), var(--tech-primary));
+    transform: translateY(-2px);
+    box-shadow: var(--tech-shadow-primary);
+}
+
+.btn-outline-primary {
+    border-color: var(--tech-primary);
+    color: var(--tech-primary);
+}
+
+.btn-outline-primary:hover {
+    background: linear-gradient(135deg, var(--tech-primary), var(--tech-accent));
+    border-color: transparent;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ffc107, #ff9800);
+    border: none;
+    color: #212529;
+}
+
+.btn-warning:hover {
+    background: linear-gradient(135deg, #ff9800, #ffc107);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(255, 193, 7, 0.3);
+}
+
+/* Footer personalizado */
+footer {
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d) !important;
+    border-top: 3px solid var(--tech-accent);
+}
+
+footer a {
+    color: #adb5bd;
+}
+
+footer a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.social-links .btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ============================================
+   4. ELEMENTOS PERSONALIZADOS ÚNICOS
+   (Para cumplir con "personalizar al menos un elemento")
+   ============================================ */
+
+/* Toggle de tema oscuro/claro personalizado */
+#themeToggle {
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    border: 2px solid white;
+}
+
+#themeToggle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: var(--tech-transition-slow);
+}
+
+#themeToggle:hover::before {
+    left: 100%;
+}
+
+/* Badge personalizado para contador de productos */
+.badge.bg-primary {
+    background: linear-gradient(135deg, var(--tech-primary), var(--tech-accent)) !important;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 50rem;
+}
+
+/* Input de búsqueda personalizado */
+#searchProducts {
+    border: 2px solid #dee2e6;
+    border-radius: 50rem;
+    padding-left: 2.5rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236c757d' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 1rem center;
+    background-size: 1rem;
+}
+
+#searchProducts:focus {
+    border-color: var(--tech-primary);
+    box-shadow: var(--tech-shadow-primary);
+}
+
+/* Animación para mensajes de validación */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.invalid-feedback,
+.valid-feedback {
+    animation: slideIn 0.3s ease;
+}
+
+/* Efecto de pulso para botón especial */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 193, 7, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+    }
+}
+
+#specialAlert {
+    animation: pulse 2s infinite;
+}
+
+/* ============================================
+   5. TEMA OSCURO PERSONALIZADO
+   ============================================ */
+
+[data-bs-theme="dark"] {
+    --tech-card-bg: #2d3748;
+    --tech-dark: #e2e8f0;
+    --tech-light: #4a5568;
+    
+    background-color: #1a202c;
+    color: #e2e8f0;
+}
+
+[data-bs-theme="dark"] .card {
+    background-color: var(--tech-card-bg);
+    color: #e2e8f0;
+}
+
+[data-bs-theme="dark"] .table {
+    color: #e2e8f0;
+    background-color: #2d3748;
+}
+
+[data-bs-theme="dark"] .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-bs-theme="dark"] .form-control,
+[data-bs-theme="dark"] .form-select {
+    background-color: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+}
+
+[data-bs-theme="dark"] .form-control:focus,
+[data-bs-theme="dark"] .form-select:focus {
+    background-color: #2d3748;
+    color: #e2e8f0;
+}
+
+/* ============================================
+   6. RESPONSIVE DESIGN PERSONALIZADO
+   ============================================ */
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 66px;
+    }
+    
+    .carousel-item img {
+        height: 300px;
+    }
+    
+    .carousel-caption {
+        padding: 0.75rem !important;
+    }
+    
+    .carousel-caption h3 {
+        font-size: 1rem;
+    }
+    
+    .carousel-caption p {
+        font-size: 0.8rem;
+        display: none;
+    }
+    
+    .navbar-collapse {
+        background: rgba(0, 0, 0, 0.9);
+        padding: 1rem;
+        border-radius: var(--tech-border-radius);
+        margin-top: 0.5rem;
+    }
+    
+    .table-responsive {
+        border-radius: var(--tech-border-radius);
+        border: 1px solid #dee2e6;
+    }
+    
+    .btn-lg {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .form-actions .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-item img {
+        height: 250px;
+    }
+    
+    .carousel-indicators {
+        margin-bottom: 0.5rem;
+    }
+    
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 40px;
+        height: 40px;
+        margin: 0 10px;
+    }
+    
+    .display-4 {
+        font-size: 2rem;
+    }
+    
+    .display-5 {
+        font-size: 1.75rem;
+    }
+}
+
+/* ============================================
+   7. UTILIDADES PERSONALIZADAS
+   ============================================ */
+
+.text-tech-primary {
+    color: var(--tech-primary) !important;
+}
+
+.text-tech-accent {
+    color: var(--tech-accent) !important;
+}
+
+.bg-tech-gradient {
+    background: var(--tech-bg-gradient) !important;
+}
+
+.rounded-tech {
+    border-radius: var(--tech-border-radius) !important;
+}
+
+.shadow-tech {
+    box-shadow: var(--tech-shadow-lg) !important;
+}
+
+/* Transición suave para cambios de tema */
+body,
+.navbar,
+.card,
+.table,
+.form-control,
+.form-select {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
