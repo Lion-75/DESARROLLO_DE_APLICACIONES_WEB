@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Biblioteca Virtual{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>📚 Biblioteca Virtual</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('inicio') }}">Inicio</a></li>
+                <li><a href="{{ url_for('acerca') }}">Acerca de</a></li>
+                <li><a href="{{ url_for('libros') }}">Catálogo</a></li>
+                <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Biblioteca Virtual - Todos los derechos reservados</p>
+    </footer>
+</body>
+</html>
