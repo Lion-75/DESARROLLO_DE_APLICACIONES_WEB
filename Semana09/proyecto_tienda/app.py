@@ -1,4 +1,3 @@
-from conexion.conexion import get_db_connection
 from flask import Flask, render_template, request, redirect, url_for
 from inventario.inventario import (
     guardar_txt, leer_txt,
@@ -8,13 +7,24 @@ from inventario.inventario import (
 from inventario.bd import init_db
 from inventario.productos import db, Libro
 
+# ---------- DETECCIÓN DE MYSQL ----------
+mysql_disponible = False
+try:
+    from conexion.conexion import get_db_connection
+    conn = get_db_connection()
+    conn.close()
+    mysql_disponible = True
+    print("✅ MySQL disponible")
+except Exception as e:
+    print(f"⚠️ MySQL no disponible: {e}")
+
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'clave-secreta-para-formularios'  # necesario para Flask-WTF
+app.config['SECRET_KEY'] = 'clave-secreta-para-formularios'
 
 # Inicializar base de datos SQLAlchemy
 init_db(app)
 
-# Rutas existentes
+# ---------- RUTAS EXISTENTES ----------
 @app.route('/')
 def inicio():
     return render_template('index.html')
@@ -31,16 +41,14 @@ def libros():
 def contacto():
     return render_template('contacto.html')
 
-# Ruta dinámica original (texto plano)
 @app.route('/libro/<titulo>')
 def libro(titulo):
     return f"Libro: '{titulo}' - Disponible en nuestra biblioteca"
 
-# ---------- NUEVAS RUTAS PARA PERSISTENCIA ----------
+# ---------- PERSISTENCIA (archivos, SQLite) ----------
 @app.route('/agregar', methods=['GET', 'POST'])
 def agregar():
     if request.method == 'POST':
-        # Obtener datos del formulario
         titulo = request.form['titulo']
         autor = request.form['autor']
         cantidad = int(request.form['cantidad'])
@@ -54,7 +62,6 @@ def agregar():
             'precio': precio
         }
 
-        # Guardar según el formato elegido
         if formato == 'txt':
             guardar_txt(datos)
         elif formato == 'json':
@@ -66,15 +73,12 @@ def agregar():
             db.session.add(nuevo_libro)
             db.session.commit()
 
-        # Redirigir a la página de visualización del formato correspondiente
         return redirect(url_for('ver_datos', formato=formato))
     else:
-        # GET: mostrar el formulario
         return render_template('producto_form.html')
 
 @app.route('/ver/<formato>')
 def ver_datos(formato):
-    """Muestra los datos guardados en el formato indicado."""
     if formato == 'txt':
         datos = leer_txt()
     elif formato == 'json':
@@ -82,19 +86,19 @@ def ver_datos(formato):
     elif formato == 'csv':
         datos = leer_csv()
     elif formato == 'sqlite':
-        # Obtener todos los libros de la base de datos
         datos = Libro.query.all()
-        # Convertir los objetos a diccionarios para que la plantilla los muestre igual
         datos = [{'titulo': d.titulo, 'autor': d.autor, 'cantidad': d.cantidad, 'precio': d.precio} for d in datos]
     else:
         datos = []
     return render_template('datos.html', datos=datos, formato=formato)
 
-# ---------- RUTAS PARA MYSQL ----------
+# ---------- RUTAS PARA MYSQL (con verificación) ----------
 @app.route('/mysql/agregar', methods=['GET', 'POST'])
 def mysql_agregar():
+    if not mysql_disponible:
+        return render_template('error_mysql.html', mensaje="MySQL no está disponible en este entorno.")
     if request.method == 'POST':
-        titulo = request.form['titulo']          # sin tilde
+        titulo = request.form['titulo']
         autor = request.form['autor']
         cantidad = int(request.form['cantidad'])
         precio = float(request.form['precio'])
@@ -112,6 +116,8 @@ def mysql_agregar():
 
 @app.route('/mysql/ver')
 def mysql_ver():
+    if not mysql_disponible:
+        return render_template('error_mysql.html', mensaje="MySQL no está disponible en este entorno.")
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM libros")
@@ -121,6 +127,8 @@ def mysql_ver():
 
 @app.route('/mysql/editar/<int:id>', methods=['GET', 'POST'])
 def mysql_editar(id):
+    if not mysql_disponible:
+        return render_template('error_mysql.html', mensaje="MySQL no está disponible en este entorno.")
     conn = get_db_connection()
     cursor = conn.cursor()
     if request.method == 'POST':
@@ -143,6 +151,8 @@ def mysql_editar(id):
 
 @app.route('/mysql/eliminar/<int:id>')
 def mysql_eliminar(id):
+    if not mysql_disponible:
+        return render_template('error_mysql.html', mensaje="MySQL no está disponible en este entorno.")
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute("DELETE FROM libros WHERE id = %s", (id,))

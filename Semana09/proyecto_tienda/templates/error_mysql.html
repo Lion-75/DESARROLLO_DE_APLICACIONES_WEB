@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}MySQL no disponible{% endblock %}
+{% block content %}
+    <h2>⚠️ MySQL no disponible</h2>
+    <p>{{ mensaje }}</p>
+    <p>Las funciones de MySQL no están activas en este despliegue, pero el resto de la aplicación sigue funcionando.</p>
+    <a href="{{ url_for('inicio') }}">Volver al inicio</a>
+{% endblock %}
