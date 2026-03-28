@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Datos Guardados{% endblock %}
+
+{% block content %}
+<h2>Datos Guardados</h2>
+<p><strong>Formato:</strong> {{ formato }}</p>
+{% if datos %}
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in datos %}
+            <tr>
+                <td>{{ item.titulo }}</td>
+                <td>{{ item.autor }}</td>
+                <td>{{ item.cantidad }}</td>
+                <td>{{ item.precio }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No hay datos en este formato aún.</p>
+{% endif %}
+<br>
+<a href="{{ url_for('agregar') }}">Agregar otro libro</a>
+{% endblock %}
