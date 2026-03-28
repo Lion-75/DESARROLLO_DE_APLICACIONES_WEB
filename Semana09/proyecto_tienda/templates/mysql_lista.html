@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Libros en MySQL{% endblock %}
+
+{% block content %}
+<h2>Lista de Libros (MySQL)</h2>
+{% if libros %}
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for libro in libros %}
+            <tr>
+                <td>{{ libro.id }}</td>
+                <td>{{ libro.titulo }}</td>
+                <td>{{ libro.autor }}</td>
+                <td>{{ libro.cantidad }}</td>
+                <td>{{ libro.precio }}</td>
+                <td>
+                    <a href="{{ url_for('mysql_editar', id=libro.id) }}">Editar</a> |
+                    <a href="{{ url_for('mysql_eliminar', id=libro.id) }}" onclick="return confirm('¿Eliminar?')">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No hay libros en la base de datos MySQL.</p>
+{% endif %}
+<br>
+<a href="{{ url_for('mysql_agregar') }}">Agregar nuevo libro</a>
+{% endblock %}

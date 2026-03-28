@@ -1,3 +1,4 @@
+from conexion.conexion import get_db_connection
 from flask import Flask, render_template, request, redirect, url_for
 from inventario.inventario import (
     guardar_txt, leer_txt,
@@ -88,6 +89,66 @@ def ver_datos(formato):
     else:
         datos = []
     return render_template('datos.html', datos=datos, formato=formato)
+
+# ---------- RUTAS PARA MYSQL ----------
+@app.route('/mysql/agregar', methods=['GET', 'POST'])
+def mysql_agregar():
+    if request.method == 'POST':
+        titulo = request.form['titulo']          # sin tilde
+        autor = request.form['autor']
+        cantidad = int(request.form['cantidad'])
+        precio = float(request.form['precio'])
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute(
+            "INSERT INTO libros (titulo, autor, cantidad, precio) VALUES (%s, %s, %s, %s)",
+            (titulo, autor, cantidad, precio)
+        )
+        conn.commit()
+        conn.close()
+        return redirect(url_for('mysql_ver'))
+    return render_template('mysql_form.html')
+
+@app.route('/mysql/ver')
+def mysql_ver():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM libros")
+    libros = cursor.fetchall()
+    conn.close()
+    return render_template('mysql_lista.html', libros=libros)
+
+@app.route('/mysql/editar/<int:id>', methods=['GET', 'POST'])
+def mysql_editar(id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    if request.method == 'POST':
+        titulo = request.form['titulo']
+        autor = request.form['autor']
+        cantidad = int(request.form['cantidad'])
+        precio = float(request.form['precio'])
+        cursor.execute(
+            "UPDATE libros SET titulo=%s, autor=%s, cantidad=%s, precio=%s WHERE id=%s",
+            (titulo, autor, cantidad, precio, id)
+        )
+        conn.commit()
+        conn.close()
+        return redirect(url_for('mysql_ver'))
+    else:
+        cursor.execute("SELECT * FROM libros WHERE id = %s", (id,))
+        libro = cursor.fetchone()
+        conn.close()
+        return render_template('mysql_editar.html', libro=libro)
+
+@app.route('/mysql/eliminar/<int:id>')
+def mysql_eliminar(id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM libros WHERE id = %s", (id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('mysql_ver'))
 
 if __name__ == '__main__':
     app.run(debug=True)
