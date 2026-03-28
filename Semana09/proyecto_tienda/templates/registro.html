@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Registro de Usuario{% endblock %}
+{% block content %}
+<h2>Registro de Usuario</h2>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul style="color: red;">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<form method="post">
+    <label>Nombre:</label><br>
+    <input type="text" name="nombre" required><br><br>
+    <label>Email:</label><br>
+    <input type="email" name="email" required><br><br>
+    <label>Contraseña:</label><br>
+    <input type="password" name="password" required><br><br>
+    <input type="submit" value="Registrarse">
+</form>
+<p>¿Ya tienes cuenta? <a href="{{ url_for('login') }}">Inicia sesión aquí</a></p>
+{% endblock %}

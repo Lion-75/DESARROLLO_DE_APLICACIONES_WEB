@@ -79,3 +79,60 @@ class Inventario:
             print("\n📖 LISTA DE LIBROS:")
             for libro in self.libros.values():
                 print(libro)
+
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+
+class Usuario(UserMixin):
+    def __init__(self, id_usuario, nombre, email, password):
+        self.id = id_usuario
+        self.nombre = nombre
+        self.email = email
+        self.password_hash = password
+
+    @staticmethod
+    def obtener_por_id(id_usuario):
+        from conexion.conexion import get_db_connection
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT id_usuario, nombre, email, password FROM usuarios WHERE id_usuario = %s", (id_usuario,))
+        row = cursor.fetchone()
+        conn.close()
+        if row:
+            return Usuario(row['id_usuario'], row['nombre'], row['email'], row['password'])
+        return None
+
+    @staticmethod
+    def obtener_por_email(email):
+        from conexion.conexion import get_db_connection
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT id_usuario, nombre, email, password FROM usuarios WHERE email = %s", (email,))
+        row = cursor.fetchone()
+        conn.close()
+        if row:
+            return Usuario(row['id_usuario'], row['nombre'], row['email'], row['password'])
+        return None
+
+    def verificar_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    @staticmethod
+    def crear_usuario(nombre, email, password):
+        from conexion.conexion import get_db_connection
+        hashed = generate_password_hash(password)
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute(
+                "INSERT INTO usuarios (nombre, email, password) VALUES (%s, %s, %s)",
+                (nombre, email, hashed)
+            )
+            conn.commit()
+            user_id = cursor.lastrowid
+            conn.close()
+            return Usuario(user_id, nombre, email, hashed)
+        except Exception as e:
+            conn.close()
+            print(f"Error al crear usuario: {e}")
+            return None
