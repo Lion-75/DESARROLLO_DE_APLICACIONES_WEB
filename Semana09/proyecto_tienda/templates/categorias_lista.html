@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Categorías{% endblock %}
+{% block content %}
+<h2>Listado de Categorías</h2>
+<a href="{{ url_for('nueva_categoria') }}">➕ Agregar categoría</a>
+<ul>
+    {% for cat in categorias %}
+    <li>{{ cat.nombre }} (ID: {{ cat.id }})</li>
+    {% endfor %}
+</ul>
+<a href="{{ url_for('inicio') }}">Volver al inicio</a>
+{% endblock %}

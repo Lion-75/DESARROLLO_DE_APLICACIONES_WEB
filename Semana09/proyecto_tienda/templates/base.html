@@ -16,10 +16,13 @@
                 <li><a href="{{ url_for('libros') }}">Catálogo</a></li>
                 <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
                 {% if current_user.is_authenticated %}
-                    <li><a href="{{ url_for('agregar') }}">Agregar Libro</a></li>
-                    <li><a href="{{ url_for('mysql_ver') }}">Libros MySQL</a></li>
-                    <li><a href="{{ url_for('mysql_agregar') }}">Agregar a MySQL</a></li>
-                    <li><a href="{{ url_for('logout') }}">Cerrar sesión ({{ current_user.nombre }})</a></li>
+                    <!-- Nuevos enlaces CRUD -->
+                    <li><a href="{{ url_for('listado_libros') }}">📖 Listado de Libros</a></li>
+                    <li><a href="{{ url_for('nuevo_libro') }}">➕ Agregar Libro</a></li>
+                    <li><a href="{{ url_for('listado_categorias') }}">📂 Categorías</a></li>
+                    <li><a href="{{ url_for('reporte_libros') }}">📄 Reporte PDF</a></li>
+                    <!-- Cierre de sesión -->
+                    <li><a href="{{ url_for('logout') }}">🚪 Cerrar sesión ({{ current_user.nombre }})</a></li>
                 {% else %}
                     <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
                     <li><a href="{{ url_for('registro') }}">Registro</a></li>
